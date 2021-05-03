@@ -85,12 +85,13 @@
                     </asp:DropDownList>
                 </td>
                 <td>
-                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="next" />
                 </td>
                 <td>&nbsp;</td>
             </tr>
         </table>
         <div>
+            <asp:Label ID="Label1" runat="server"></asp:Label>
         </div>
     </form>
 </body>

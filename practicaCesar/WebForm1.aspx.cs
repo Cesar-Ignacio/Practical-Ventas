@@ -16,49 +16,31 @@ namespace practicaCesar
         {
             if(!IsPostBack)
             {
-                Cargar(ddtipoventa,"idtipoventa_tv", "decripcion_tv"," tiposdeventas ");
-                Cargar(ddhora, "idhora_hr", "horarios_hr", " horarios ");
-                Cargar(ddformaPago,"idformapago_fp","descripcion_fp"," formaPago ");
-                Cargar(ddzona, "idzona_zo", "descripcion_zo", " zonas ");
+                Cargar c = new Cargar();
+
+                c.Cargarr(ddtipoventa, "idtipoventa_tv", "decripcion_tv", " tiposdeventas ");
+                c.Cargarr(ddhora, "idhora_hr", "horarios_hr", " horarios ");
+                c.Cargarr(ddformaPago, "idformapago_fp", "descripcion_fp", " formaPago ");
+                c.Cargarr(ddzona, "idzona_zo", "descripcion_zo", " zonas ");
+                
 
             }
         }
-        protected void Cargar(DropDownList ddls,string campo1,string campo2, string DataBase)
-        {
-            string consulta = "select " + campo1 + "," + campo2 + " from" + DataBase;
 
-            SqlConnection cn = new SqlConnection(rutaBD);
-            cn.Open();
 
-            SqlCommand cmd = new SqlCommand(consulta, cn);
-
-            SqlDataReader dr = cmd.ExecuteReader();
-
-            while (dr.Read())
-            {
-                ddls.Items.Add(new ListItem((string)dr[campo2], "" + dr[campo1]));
-            }
-
-            cn.Close();
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void next_Click(object sender, EventArgs e)
         {
 
             string campos = "idventa_ve, idcliente_ve, entrega_ve, idtipoventa_ve, idhorario_ve, idformapago_ve, idzona_ve";
             string valore=" '"+tbidventa.Text+"','"+idcliente.Text+"','"+tbentrega.Text+"','"+ddtipoventa.SelectedValue+"','"+ddhora.SelectedValue+"','"+ddformaPago.SelectedValue+"','"+ddzona.SelectedValue+"'";
-            
-            string consulta = "insert into Ventas("+campos+")values("+valore+")";
 
-            SqlConnection cn = new SqlConnection(rutaBD);
+            Ventas v = new Ventas();
 
-            cn.Open();
-
-            SqlCommand cmd = new SqlCommand(consulta, cn);
-
-            int file = cmd.ExecuteNonQuery();
-
-            cn.Close();
+            if(v.insert(campos, valore))
+            {
+                Label1.Text = "Se agrego la venta";
+            }
+         
 
         }
     }
